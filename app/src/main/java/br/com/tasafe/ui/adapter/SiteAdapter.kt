@@ -16,7 +16,7 @@ import br.com.tasafe.tasafe.R
 
 class SiteAdapter (var c: Context): RecyclerView.Adapter<SiteAdapter.MyHolder>() {
     var listener: ListenerSiteAdapter? = null
-    var contas = emptyList<Site>() // Cached copy of words
+    var contas = emptyList<Site>()
     var selectedItem:Site? = null
     lateinit var currentView:View
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
@@ -78,13 +78,6 @@ class SiteAdapter (var c: Context): RecyclerView.Adapter<SiteAdapter.MyHolder>()
             }
         }
     }
-
-    /*fun showPass(position: Int,pass:String){
-        contas.get(position).decrypt = pass
-       notifyDataSetChanged()
-    }
-*/
-
 
     fun setMyListener(listener: ListenerSiteAdapter) {
         this.listener = listener

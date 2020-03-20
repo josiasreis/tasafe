@@ -1,8 +1,5 @@
 package br.com.tasafe.utils
 
-import android.R.attr.label
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.*
@@ -11,9 +8,6 @@ import android.graphics.drawable.Drawable
 import android.util.DisplayMetrics
 import android.view.View
 import android.widget.EditText
-import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
-
 
 fun View.hide() = {
     this.visibility = View.GONE

@@ -47,9 +47,9 @@ class MySitesActivity : BaseActivity() {
     }
 
     private fun setupRecycleView() {
-        this?.let {
+        this.let {
             recycleSites.layoutManager = LinearLayoutManager(it)
-            recycleSites.layoutManager = LinearLayoutManager(this!!)
+            recycleSites.layoutManager = LinearLayoutManager(this)
 
             val decoration =
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL).apply {

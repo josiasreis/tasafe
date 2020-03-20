@@ -9,7 +9,6 @@ import javax.security.cert.CertificateException
 
 internal class DeCryptor {
     lateinit var keyStore: KeyStore
-
     @Throws(
         KeyStoreException::class,
         CertificateException::class,

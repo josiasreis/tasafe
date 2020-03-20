@@ -60,7 +60,7 @@ class NewSiteViewModel(application: Application) : AndroidViewModel(application)
             password.set(decrypted)
             _viewMod.postValue(true)
         }catch (e:Exception){
-            //TODO REMOVER DA KEYSTORE E LANCAR MENSAGEM NA TELA
+            //TODO LANCAR MENSAGEM NA TELA
         }
     }
 

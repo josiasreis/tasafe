@@ -35,9 +35,6 @@ class LoginRegisterViewModel(application: Application) : AndroidViewModel(applic
     private var _loginBase64Encrypted = MutableLiveData<KeyStoreDTO>()
     val loginBase64Encrypted: LiveData<KeyStoreDTO> = _loginBase64Encrypted
 
-/*    private var _IVBase64Encrypted = MutableLiveData<String>()
-    val IVBase64Encrypted: LiveData<String> = _IVBase64Encrypted*/
-
     private val _logged = MutableLiveData<Boolean>(false)
     var logged: LiveData<Boolean> = _logged
 
@@ -73,12 +70,6 @@ class LoginRegisterViewModel(application: Application) : AndroidViewModel(applic
         if(pass.equals(decrypted)){
             _logged.value = true
         }
-        /*var lastLoggedIn: String? = null
-        decrypted?.let {
-            _logged.value = true
-            lastLoggedIn = String(it, Charsets.UTF_8)
-            Log.d("ULTIMO_LOGIN",lastLoggedIn)
-        }*/
     }
 
     fun setUserSaved(saved:Boolean){
@@ -91,24 +82,6 @@ class LoginRegisterViewModel(application: Application) : AndroidViewModel(applic
 
     fun validatePass():Boolean{
        return loginBO.isValidPass(password.get().toString())
-    }
-
-    fun isFormaValid(): String? {
-        var valid = loginBO.isValidPass(password.get().toString())
-        var nameEmpty = _user.value!!.nome.isEmpty()
-        var emailEmpty = _user.value!!.email.isEmpty()
-        var validEmail = _user.value!!.email.isEmailValid()
-        if(!valid){
-            return "Senha inválida"
-        }else if(nameEmpty){
-            return "Nome é obrigatório"
-        }else if(emailEmpty){
-            return "Email é obrigatório"
-        }else if(validEmail){
-            return "Email invalido"
-        }else{
-            return null
-        }
     }
 }
 

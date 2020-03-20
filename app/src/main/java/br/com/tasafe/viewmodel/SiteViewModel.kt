@@ -33,7 +33,6 @@ class SiteViewModel(application: Application) : AndroidViewModel(application) {
     val sites: LiveData<List<Site>>
 
     val password = ObservableField<String>()
-    private var myClipboard: ClipboardManager? = null
     init {
         val uiScope = CoroutineScope(Dispatchers.Main)
         val siteDAO = TaSafeDataBase.getDatabase(application,uiScope).siteDAO()
@@ -48,15 +47,6 @@ class SiteViewModel(application: Application) : AndroidViewModel(application) {
         var decryptor = DeCryptor()
         var decrypted = decryptor.decryptData("chavePrivadaLogins",arrayBytesEncrypted,ivBytesEncrypted)
         return decrypted
-       /* val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clipData = ClipData.newPlainText("text", decrypted)
-        clipboardManager.setPrimaryClip(clipData)
-        Toast.makeText(this, "Text copied to clipboard", Toast.LENGTH_LONG).show()
-
-        val myClip = ClipData.newPlainText("text",decrypted);
-        val primaryClip = myClipboard?.setPrimaryClip(myClip);
-        Toast.makeText(context, "Senha copiada para área de transferência", Toast.LENGTH_LONG).show();*/
-       // adapter.showPass(position,decrypted)
     }
 
     fun delete(site:Site) = viewModelScope.launch {
