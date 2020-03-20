@@ -29,11 +29,6 @@ public abstract class TaSafeDataBase : RoomDatabase() {
 
             override fun onOpen(db: SupportSQLiteDatabase) {
                 super.onOpen(db)
-                INSTANCE?.let { database ->
-                    scope.launch {
-
-                    }
-                }
             }
         }
 

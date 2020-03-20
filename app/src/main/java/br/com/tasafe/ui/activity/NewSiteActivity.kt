@@ -29,15 +29,15 @@ class NewSiteActivity : BaseActivity() {
         binding.viewmodelN = viewModel
         binding.lifecycleOwner = this
 
-        actionbar!!.setDisplayHomeAsUpEnabled(true)
-         actionbar!!.setDisplayHomeAsUpEnabled(true)
+        actionbar?.setDisplayHomeAsUpEnabled(true)
+         actionbar?.setDisplayHomeAsUpEnabled(true)
 
        var idSite = intent.getIntExtra("idSite",0)
         if(idSite != 0){
-            actionbar!!.title = "Editar Site"
+            actionbar?.title = getResources().getString(R.string.editarSite)
             loadViewMode(idSite)
         }else{
-            actionbar!!.title = "Novo Site"
+            actionbar?.title = getResources().getString(R.string.novoSite)
         }
         observerChangeMode()
     }

@@ -123,9 +123,9 @@ class LoginActivity : BaseActivity() {
 
     private fun showBiometricPrompt() {
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Biometria Ta Safe")
-            .setSubtitle("Login usando biometria digital")
-            .setNegativeButtonText("Cancelar")
+            .setTitle(getResources().getString(R.string.titleFingerPrompt))
+            .setSubtitle(getResources().getString(R.string.subTitleFingerPrompt))
+            .setNegativeButtonText(getResources().getString(R.string.subTitleFingerPrompt))
             .build()
 
         val biometricPrompt = BiometricPrompt(this, executor,
@@ -143,8 +143,6 @@ class LoginActivity : BaseActivity() {
                     result: BiometricPrompt.AuthenticationResult
                 ) {
                     super.onAuthenticationSucceeded(result)
-                    val authenticatedCryptoObject: BiometricPrompt.CryptoObject? =
-                        result.getCryptoObject()
                     viewModel.setUserLogged(true)
                 }
 
@@ -164,15 +162,15 @@ class LoginActivity : BaseActivity() {
         var emailEmpty = viewModel.user.value!!.email.isEmpty()
         var isValid = true
         if(!valid){
-            binding.txtPass.setError("Senha está inválida")
+            binding.txtPass.setError(getResources().getString(R.string.invalid_password))
             isValid= false
         }
         if(nameEmpty){
-            binding.txtNome.setError("Nome é obrigatório")
+            binding.txtNome.setError(getResources().getString(R.string.nomeRequired))
             isValid= false
         }
         if(emailEmpty){
-            binding.txtEmail.setError("Email é obrigatório")
+            binding.txtEmail.setError(getResources().getString(R.string.emailRequired))
             isValid= false
         }
         return isValid

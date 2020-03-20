@@ -7,10 +7,11 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be > 5 characters</string>
+    <string name="invalid_password">Senha está inválida</string>
     <string name="login_failed">"Login failed"</string>
     <string name="registrar">Registrar</string>
     <string name="autenticar">Autenticar com Senha</string>
+    <string name="cancelar">Cancelar</string>
 
     <string name="senha">Senha</string>
     <string name="email">Email</string>
@@ -21,5 +22,13 @@
     <string name="nomeRequired">Nome é obrigatório</string>
     <string name="gerenciador_seguro_de_senhas">Gerenciador seguro de senhas</string>
     <string name="clique_para_autenticaar_com_digital">clique para autenticaar com digital</string>
-
+    <string name="emailRequired">Email é obrigatório</string>
+    <!-- biometria-->
+    <string name="titleFingerPrompt">Biometria Ta Safe</string>
+    <string name="subTitleFingerPrompt">Login usando biometria digital</string>
+    <!--meus sites-->
+    <string name="titleMySytes">Meus sites</string>
+    <string name="senhaCopiada">Senha copiada</string>
+    <string name="editarSite">Editar Site</string>
+    <string name="novoSite">Novo Site</string>
 </resources>

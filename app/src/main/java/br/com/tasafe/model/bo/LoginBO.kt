@@ -1,13 +1,9 @@
 package br.com.tasafe.model.bo
 
-import android.util.Base64
 import br.com.tasafe.model.data.User
 import br.com.tasafe.model.repository.UserRepository
 import br.com.tasafe.utils.*
 import br.com.tasafe.utils.EnCryptor
-import java.text.DateFormat
-import java.util.*
-import kotlin.collections.HashMap
 
 
 /* CLASSE DE NEGOCIO RELACIONADA AO LOGIN : BUSINESS OBJECT PATTERN */
@@ -39,9 +35,8 @@ class LoginBO {
     suspend fun registerUser(user: User,pass:String): EnCryptor {
         repository.insert(user)
         var encryptor = EnCryptor()
-        var arrayBytesChave = encryptor.encryptText("login",pass)
+        encryptor.encryptText("login",pass)
         return encryptor
-        //return Base64.encodeToString(arrayBytesChave, Base64.DEFAULT)
     }
 
     companion object{

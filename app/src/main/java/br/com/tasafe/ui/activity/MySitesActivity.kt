@@ -24,7 +24,6 @@ import br.com.tasafe.utils.generateDashedLineDrawable
 import br.com.tasafe.viewmodel.SiteViewModel
 import kotlinx.android.synthetic.main.activity_my_sites.*
 
-
 class MySitesActivity : BaseActivity() {
 
     private lateinit var adapter: SiteAdapter
@@ -34,11 +33,7 @@ class MySitesActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_sites)
         val actionbar = supportActionBar
-        //set actionbar title
-        actionbar!!.title = "Meus Sites"
-        //set back button
-        //actionbar.setDisplayHomeAsUpEnabled(true)
-       // actionbar.setDisplayHomeAsUpEnabled(true)
+        actionbar!!.title = getResources().getString(R.string.titleMySytes)
 
         viewModel = ViewModelProvider(this).get(SiteViewModel::class.java)
         var binding: ActivityMySitesBinding =
@@ -47,10 +42,9 @@ class MySitesActivity : BaseActivity() {
         setupRecycleView()
     }
 
-    fun newSite(view: View){
-        NavigationUtil.goTo(this,NewSiteActivity::class.java)
+    fun newSite(view: View) {
+        NavigationUtil.goTo(this, NewSiteActivity::class.java)
     }
-
 
     private fun setupRecycleView() {
         this?.let {
@@ -59,46 +53,47 @@ class MySitesActivity : BaseActivity() {
 
             val decoration =
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL).apply {
-                    recycleSites.context?.generateDashedLineDrawable(
+                    recycleSites.context.generateDashedLineDrawable(
                         backgroundColor = Color.BLACK,
                         strokeColor = Color.BLACK
-                    )?.let {
+                    ).let {
                         setDrawable(it)
                     }
                 }
 
             recycleSites.addItemDecoration(decoration)
-             adapter = SiteAdapter(it)
+            adapter = SiteAdapter(it)
             adapter.setMyListener(object : ListenerSiteAdapter {
                 override fun itemClicked(position: Int) {
-                   /* deleteView= false
-                    adapter.unSelectedCurrentItem()
-                    invalidateOptionsMenu()*/
-                    var intent = Intent(applicationContext,NewSiteActivity::class.java)
+                    var intent = Intent(applicationContext, NewSiteActivity::class.java)
                     val site = viewModel.sites.value!!.get(position)
                     intent.putExtra("idSite", site.idSite);
-                    NavigationUtil.goTo(applicationContext,intent)
+                    NavigationUtil.goTo(applicationContext, intent)
                 }
 
                 override fun itemUnSelected(position: Int) {
-                    deleteView= false
+                    deleteView = false
                     invalidateOptionsMenu()
                 }
 
                 override fun showPassClicked(position: Int) {
-                   var myClipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?;
-                   val site =  viewModel.sites.value!!.get(position)
+                    val site = viewModel.sites.value!!.get(position)
                     var pass = viewModel.showPass(site)
 
-                    val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                    val clipData = ClipData.newPlainText("text",pass)
+                    val clipboardManager =
+                        getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clipData = ClipData.newPlainText("text", pass)
                     clipboardManager.setPrimaryClip(clipData)
-                    Toast.makeText(applicationContext, "Senha copiada", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        applicationContext,
+                        getResources().getString(R.string.senhaCopiada),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
 
                 override fun itemLongClicked(position: Int) {
-                    deleteView= true
-                        invalidateOptionsMenu()
+                    deleteView = true
+                    invalidateOptionsMenu()
                 }
             })
 
@@ -110,16 +105,17 @@ class MySitesActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        //super.onBackPressed()
-        deleteView= false
+        removeSelecion()
+    }
+
+    private fun removeSelecion() {
+        deleteView = false
         invalidateOptionsMenu()
         adapter.unSelectedCurrentItem()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-       // val item = menu.findItem(R.id.itemDelete)
-        if(deleteView){
+        if (deleteView) {
             menuInflater.inflate(R.menu.menu, menu)
         }
 
@@ -127,16 +123,13 @@ class MySitesActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.itemDelete -> {
-                viewModel.delete( adapter.selectedItem!!)
-                deleteView= false
+                viewModel.delete(adapter.selectedItem!!)
+                deleteView = false
                 adapter.unSelectedCurrentItem()
                 invalidateOptionsMenu()
-               return true
+                return true
             }
 
             else -> super.onOptionsItemSelected(item)

@@ -37,7 +37,7 @@ class SiteAdapter (var c: Context): RecyclerView.Adapter<SiteAdapter.MyHolder>()
             holder.tvUsuario.text = item.usuario
             //CASO QUEIRA MOSTRAR A SENHA NA PROPRIA LINHA DESCOMENTAR
           /*  holder.tvPass.text = item.decrypt*/
-            if(item.imagem == null || "".equals(item.imagem)){
+            if("".equals(item.imagem)){
                 item.nomeSite.let {
                     if(item.nomeSite.length > 1){
                         holder.tvIcon.text = item.nomeSite.subSequence(0,1).toString().toUpperCase()
@@ -101,7 +101,7 @@ class SiteAdapter (var c: Context): RecyclerView.Adapter<SiteAdapter.MyHolder>()
     }
 
     fun updateListSetChange(sites: List<Site>) {
-        contas?.let {
+        contas.let {
             this.contas = sites
             notifyDataSetChanged()
         }
