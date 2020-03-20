@@ -37,13 +37,13 @@ class LoginBOTest {
 
     @Test
     fun isInValidPass() {
-        val result = loginBO.isValidPass("Abcd1efg")
+        val result = LoginBO.isValidPass("Abcd1efg")
         assertFalse(result)
     }
 
     @Test
     fun isValidPass() {
-        val result = loginBO.isValidPass("Abcd1efg#$")
+        val result = LoginBO.isValidPass("Abcd1efg#$")
         assertTrue(result)
     }
 }

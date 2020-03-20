@@ -27,7 +27,7 @@ import javax.crypto.*
         val cipher: Cipher = Cipher.getInstance(TRANSFORMATION)
         cipher.init(Cipher.ENCRYPT_MODE, getSecretKey(alias))
         iv = cipher.getIV()
-        return cipher.doFinal(textToEncrypt.toByteArray(charset("UTF-8"))).also({
+        return cipher.doFinal(textToEncrypt.toByteArray(charset("UTF-8"))).also(block = {
             encryption = it
         })
     }

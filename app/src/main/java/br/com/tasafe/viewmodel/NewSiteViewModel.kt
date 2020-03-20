@@ -31,7 +31,7 @@ class NewSiteViewModel(application: Application) : AndroidViewModel(application)
     private val _viewMod = MutableLiveData<Boolean>()
     val viewMod: LiveData<Boolean> = _viewMod
 
-    val password = ObservableField<String>()
+    val password = ObservableField<String>("")
     init {
         val site = Site(null,"","","","","","","")
         _site.value = site

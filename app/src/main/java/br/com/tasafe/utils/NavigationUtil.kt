@@ -16,6 +16,14 @@ class NavigationUtil {
             ContextCompat.startActivity(context,intent,null)
         }
 
+        fun goToAndClearStack(context: Context, classeDestino: Class<out Any>){
+            var intent = Intent(context, classeDestino)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            ContextCompat.startActivity(context,intent,null)
+        }
+
+
+
     }
 
 }

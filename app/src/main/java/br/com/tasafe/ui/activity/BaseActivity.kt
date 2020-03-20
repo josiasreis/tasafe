@@ -3,7 +3,9 @@ package br.com.tasafe.ui.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import br.com.tasafe.tasafe.R
+import kotlinx.android.synthetic.main.loading.*
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -20,5 +22,13 @@ open class BaseActivity : AppCompatActivity() {
     override fun startActivityForResult(intent: Intent?, requestCode: Int) {
         super.startActivityForResult(intent, requestCode)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_nothing)
+    }
+
+    fun showLoading(){
+        clFullLoading.visibility = View.VISIBLE
+    }
+
+    fun hideLoading(){
+        clFullLoading.visibility = View.GONE
     }
 }

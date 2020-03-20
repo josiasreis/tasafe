@@ -10,5 +10,6 @@
     <color name="colorWhite">#ffff</color>
     <color name="colorError">#da3a36</color>
     <color name="colorBlack">#050709</color>
-
+    <color name="gray_dark">#696C74</color>
+    <color name="gray_dark2">#5C728F</color>
 </resources>

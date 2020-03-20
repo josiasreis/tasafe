@@ -25,13 +25,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:hint="@string/nome"
-            android:labelFor="@+id/txtNome"
+            android:labelFor="@+id/txtNomeSite"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <EditText
-                android:id="@+id/txtNome"
+                android:id="@+id/txtNomeSite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorWhite"
@@ -49,13 +49,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:hint="URL"
-            android:labelFor="@+id/txtEmail"
+            android:labelFor="@+id/txtSite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nomeInptLayout">
 
             <EditText
-                android:id="@+id/txtEmail"
+                android:id="@+id/txtSite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorWhite"
@@ -97,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:labelFor="@+id/txtPass"
+            android:labelFor="@+id/txtPassSite"
             android:hint="@string/senha"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/colorWhite"
@@ -106,13 +106,14 @@
             app:layout_constraintTop_toBottomOf="@id/txtInptLayoutiUsuario">
 
             <EditText
-                android:id="@+id/txtPass"
+                android:id="@+id/txtPassSite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorWhite"
                 android:text="@={viewmodelN.password}"
                 android:inputType="textPassword"
                 android:padding="@dimen/min_dp"
+                android:imeOptions="actionDone"
                 android:autofillHints="">
             </EditText>
         </com.google.android.material.textfield.TextInputLayout>
@@ -130,7 +131,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtInptLayoutPass" />
-
+            android:layout_marginBottom="@dimen/normal_dp"/>
+        <include layout="@layout/loading" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

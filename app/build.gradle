@@ -87,4 +87,5 @@ dependencies {
     implementation "androidx.security:security-crypto:$security_version"
     //imagem
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation "com.airbnb.android:lottie:3.0.7"
 }

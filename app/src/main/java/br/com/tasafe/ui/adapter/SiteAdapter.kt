@@ -101,8 +101,11 @@ class SiteAdapter (var c: Context): RecyclerView.Adapter<SiteAdapter.MyHolder>()
     }
 
     fun unSelectedCurrentItem() {
-        currentView.setBackgroundColor(ContextCompat.getColor(c,
-            R.color.colorBackground))
+        if (::currentView.isInitialized) {
+            currentView.setBackgroundColor(ContextCompat.getColor(
+                c,
+                R.color.colorBackground))
+        }
     }
 
     class MyHolder(view: View) : RecyclerView.ViewHolder(view) {

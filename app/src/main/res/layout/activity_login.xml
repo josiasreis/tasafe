@@ -132,13 +132,14 @@
                     android:id="@+id/txtPass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
+                    android:autofillHints=""
+                    android:imeOptions="actionDone"
                     android:inputType="textPassword"
-                    android:text="@={viewmodel.password}"
-                    app:invalidPass="@{`A senha deve conter no mínimo 8 caracteres, 1 letra, 1 número e 1 caractere especial.`}"
-                    app:viewmodel="@{viewmodel}"
                     android:padding="@dimen/min_dp"
-                    android:autofillHints="">
+                    android:text="@={viewmodel.password}"
+                    android:textColor="@color/colorWhite"
+                    app:invalidPass="@{`A senha deve conter no mínimo 8 caracteres, 1 letra, 1 número e 1 caractere especial.`}"
+                    app:viewmodel="@{viewmodel}">
                 </EditText>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -238,6 +239,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
+        <include layout="@layout/loading" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

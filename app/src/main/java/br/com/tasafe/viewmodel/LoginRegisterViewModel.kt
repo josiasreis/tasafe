@@ -18,6 +18,7 @@ import br.com.tasafe.model.dto.KeyStoreDTO
 import br.com.tasafe.model.repository.UserRepository
 import br.com.tasafe.tasafe.R
 import br.com.tasafe.utils.DeCryptor
+import br.com.tasafe.utils.NavigationUtil
 import br.com.tasafe.utils.SecurityUtils
 import br.com.tasafe.utils.isEmailValid
 import kotlinx.coroutines.CoroutineScope
@@ -57,7 +58,7 @@ class LoginRegisterViewModel(application: Application) : AndroidViewModel(applic
         var iv = Base64.encodeToString(encryptor.iv, Base64.DEFAULT)
        var dto= KeyStoreDTO(iv,chave)
         _loginBase64Encrypted.value = dto
-        _userSaved.value = true
+        //_userSaved.value = true
     }
 
     fun login(loginBase64Encrypted:String?,ivBase64Encrypted:String?) {
@@ -81,7 +82,7 @@ class LoginRegisterViewModel(application: Application) : AndroidViewModel(applic
     }
 
     fun validatePass():Boolean{
-       return loginBO.isValidPass(password.get().toString())
+       return LoginBO.isValidPass(password.get().toString())
     }
 }
 

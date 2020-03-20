@@ -3,7 +3,7 @@
     <string name="title_activity_login">Cadastre-se</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Senha</string>
-    <string name="invalid_password">Senha está inválida</string>
+    <string name="invalid_password">A senha deve conter no mínimo 8 caracteres, 1 letra, 1 número e 1 caractere especial.</string>
     <string name="registrar">Registrar</string>
     <string name="autenticar">Autenticar com Senha</string>
     <string name="cancelar">Cancelar</string>
@@ -18,6 +18,7 @@
     <string name="gerenciador_seguro_de_senhas">Gerenciador seguro de senhas</string>
     <string name="clique_para_autenticaar_com_digital">clique para autenticaar com digital</string>
     <string name="emailRequired">Email é obrigatório</string>
+
     <!-- biometria-->
     <string name="titleFingerPrompt">Biometria Ta Safe</string>
     <string name="subTitleFingerPrompt">Login usando biometria digital</string>
@@ -26,4 +27,7 @@
     <string name="senhaCopiada">Senha copiada</string>
     <string name="editarSite">Editar Site</string>
     <string name="novoSite">Novo Site</string>
+    <string name="siteRequired">Site é obrigatório</string>
+    <string name="usuarioRequired">Usuário é obrigatório</string>
+    <string name="senhaRequired">Senha é obrigatória</string>
 </resources>

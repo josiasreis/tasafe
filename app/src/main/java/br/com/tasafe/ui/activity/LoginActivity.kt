@@ -1,5 +1,6 @@
 package br.com.tasafe.ui.activity
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -40,7 +41,9 @@ class LoginActivity : BaseActivity() {
     private fun setupListnerLoggedUser() {
         var loggedOberserver = Observer<Boolean> { logged ->
            if(logged){
-               NavigationUtil.goTo(this,MySitesActivity::class.java)
+             //  var intent = Intent(applicationContext, MySitesActivity::class.java)
+              // intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+               NavigationUtil.goToAndClearStack(this,MySitesActivity::class.java)
            }
         }
         viewModel.logged.observe(this, loggedOberserver)
@@ -105,16 +108,21 @@ class LoginActivity : BaseActivity() {
     }
 
     fun login(view: View) {
+    //    showLoading()
         val loginBase64Encrypted = sharedPreferences.getString("encrypted", "")
         val ivBase64Encrypted = sharedPreferences.getString("iv", "")
         viewModel.login(loginBase64Encrypted,ivBase64Encrypted)
+     //   hideLoading()
     }
 
     fun register(view: View) {
+        //showLoading()
         observerResultRegister()
         if(isFormaValid()){
             viewModel.register()
+            NavigationUtil.goToAndClearStack(this,MySitesActivity::class.java)
         }
+      //  hideLoading()
     }
 
     fun showBiometricPrompt(view: View) {
@@ -125,7 +133,7 @@ class LoginActivity : BaseActivity() {
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle(getResources().getString(R.string.titleFingerPrompt))
             .setSubtitle(getResources().getString(R.string.subTitleFingerPrompt))
-            .setNegativeButtonText(getResources().getString(R.string.subTitleFingerPrompt))
+            .setNegativeButtonText(getResources().getString(R.string.cancelar))
             .build()
 
         val biometricPrompt = BiometricPrompt(this, executor,
@@ -142,8 +150,8 @@ class LoginActivity : BaseActivity() {
                 override fun onAuthenticationSucceeded(
                     result: BiometricPrompt.AuthenticationResult
                 ) {
-                    super.onAuthenticationSucceeded(result)
                     viewModel.setUserLogged(true)
+                    super.onAuthenticationSucceeded(result)
                 }
 
                 override fun onAuthenticationFailed() {

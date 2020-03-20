@@ -19,13 +19,13 @@ import kotlinx.android.synthetic.main.activity_new_site.*
 
 class NewSiteActivity : BaseActivity() {
     lateinit var viewModel: NewSiteViewModel
-
+    lateinit var binding: ActivityNewSiteBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val actionbar = supportActionBar
 
         viewModel = ViewModelProvider(this).get(NewSiteViewModel::class.java)
-        var binding: ActivityNewSiteBinding = DataBindingUtil.setContentView(this, R.layout.activity_new_site)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_new_site)
         binding.viewmodelN = viewModel
         binding.lifecycleOwner = this
 
@@ -59,8 +59,10 @@ class NewSiteActivity : BaseActivity() {
     }
 
     fun register(view: View){
-        viewModel.save()
-        this.onBackPressed();
+        if(isFormaValid()){
+            viewModel.save()
+            this.onBackPressed();
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -72,5 +74,30 @@ class NewSiteActivity : BaseActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    fun isFormaValid(): Boolean {
+        var nameEmpty = viewModel.site.value!!.nomeSite.isEmpty()
+        var siteEmpty = viewModel.site.value!!.urlSite.isEmpty()
+        var usuarioEmpty = viewModel.site.value!!.usuario.isEmpty()
+        var passEmpty = viewModel.password.get()!!.isEmpty()
+        var isValid = true
+        if(nameEmpty){
+            binding.txtNomeSite.setError(getResources().getString(R.string.nomeRequired))
+            isValid= false
+        }
+        if(siteEmpty){
+            binding.txtSite.setError(getResources().getString(R.string.siteRequired))
+            isValid= false
+        }
+        if(usuarioEmpty){
+            binding.txtUsuario.setError(getResources().getString(R.string.usuarioRequired))
+            isValid= false
+        }
+        if(passEmpty){
+            binding.txtPassSite.setError(getResources().getString(R.string.senhaRequired))
+            isValid= false
+        }
+        return isValid
     }
 }

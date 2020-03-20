@@ -106,6 +106,7 @@ class MySitesActivity : BaseActivity() {
 
     override fun onBackPressed() {
         removeSelecion()
+        super.onBackPressed()
     }
 
     private fun removeSelecion() {
