@@ -1,0 +1,2 @@
+rootProject.name='TaSafe'
+include ':app'
