@@ -25,18 +25,19 @@ class LoginBO(private var repository: UserRepository) {
         }
 
         fun isValidPass(pass:String):Boolean{
-            if(pass.isEmpty()){
-                return false
+            val b = false
+            return if(pass.isEmpty()){
+                b
             }else if(pass.length < 8){
-                return false
+                b
             }else if(! pass.containsNumber()){
-                return false
+                b
             }else if(! pass.containsLetter()){
-                return false
+                b
             }else if(! pass.containsDigit()){
-                return false
+                b
             }else{
-                return true
+                true
             }
         }
     }

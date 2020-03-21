@@ -23,7 +23,7 @@ import javax.crypto.*
         BadPaddingException::class,
         IllegalBlockSizeException::class
     )
-    fun encryptText(alias: String, textToEncrypt: String): ByteArray {
+   suspend fun encryptText(alias: String, textToEncrypt: String): ByteArray {
         val cipher: Cipher = Cipher.getInstance(TRANSFORMATION)
         cipher.init(Cipher.ENCRYPT_MODE, getSecretKey(alias))
         iv = cipher.getIV()
