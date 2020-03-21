@@ -9,11 +9,13 @@ import android.util.DisplayMetrics
 import android.view.View
 import android.widget.EditText
 
-fun View.hide() run {
+fun View.hide() {
     this.visibility = View.GONE
 }
 
-fun View.show() = run { this.visibility = View.VISIBLE }
+/*fun View.show() = {
+    this.visibility = View.VISIBLE
+}*/
 
 fun convertDpToPixel(dp: Float, context: Context?): Float {
     return if (context != null) {

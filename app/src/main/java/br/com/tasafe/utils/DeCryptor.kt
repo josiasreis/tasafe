@@ -48,9 +48,8 @@ internal class DeCryptor {
         UnrecoverableEntryException::class,
         KeyStoreException::class
     )
-    private fun getSecretKey(alias: String): SecretKey {
-        return (keyStore.getEntry(alias, null) as KeyStore.SecretKeyEntry).secretKey
-    }
+    private fun getSecretKey(alias: String) =
+        (keyStore.getEntry(alias, null) as KeyStore.SecretKeyEntry).getSecretKey()
 
     companion object {
         private const val TRANSFORMATION = "AES/GCM/NoPadding"
