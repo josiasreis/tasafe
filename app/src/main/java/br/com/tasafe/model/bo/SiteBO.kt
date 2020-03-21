@@ -15,8 +15,11 @@ class SiteBO(private var repository: SiteRepository) {
         val iv = encodeToString(encryptor.iv, DEFAULT)
         site.iv = iv
         site.encrypted = chave
-        repository.insert(site)
-
+        if(site.idSite == null){
+            repository.insert(site)
+        }else{
+            repository.update(site)
+        }
     }
 
     companion object{

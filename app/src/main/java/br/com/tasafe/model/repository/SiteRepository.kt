@@ -18,4 +18,8 @@ class SiteRepository (private val siteDAO: SiteDAO) {
    suspend fun delete(site: Site){
         siteDAO.delete(site)
     }
+
+    suspend fun update(site: Site) {
+        siteDAO.update(site)
+    }
 }

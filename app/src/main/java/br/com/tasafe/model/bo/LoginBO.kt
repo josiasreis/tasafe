@@ -6,8 +6,6 @@ import br.com.tasafe.utils.EnCryptor
 import br.com.tasafe.utils.containsDigit
 import br.com.tasafe.utils.containsLetter
 import br.com.tasafe.utils.containsNumber
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 
 /* CLASSE DE NEGOCIO RELACIONADA AO LOGIN : BUSINESS OBJECT PATTERN */
@@ -16,10 +14,7 @@ class LoginBO(private var repository: UserRepository) {
     suspend fun registerUser(user: User,pass:String): EnCryptor {
         repository.run { insert(user) }
         val encrypt = EnCryptor()
-        GlobalScope.launch {
-            encrypt.encryptText("login",pass)
-        }
-
+        encrypt.encryptText("login",pass)
         return encrypt
     }
 

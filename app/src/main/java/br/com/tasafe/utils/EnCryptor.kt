@@ -26,14 +26,14 @@ class EnCryptor {
         IllegalBlockSizeException::class
     )
 
-    suspend fun encryptText(alias: String, textToEncrypt: String): ByteArray = GlobalScope.async {
+    fun encryptText(alias: String, textToEncrypt: String): ByteArray {
         val cipher: Cipher = Cipher.getInstance(TRANSFORMATION)
         cipher.init(Cipher.ENCRYPT_MODE, getSecretKey(alias))
         iv = cipher.iv
-        return@async cipher.doFinal(textToEncrypt.toByteArray(charset("UTF-8"))).also(block = {
+        return cipher.doFinal(textToEncrypt.toByteArray(charset("UTF-8"))).also(block = {
             encryption = it
         })
-    }.await()
+    }
 
    /*fun encryptText(alias: String, textToEncrypt: String): ByteArray {
         val cipher: Cipher = Cipher.getInstance(TRANSFORMATION)

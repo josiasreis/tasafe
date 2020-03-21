@@ -42,7 +42,7 @@ class NewSiteActivity : BaseActivity() {
         /* TODO CRIAR UM ADAPTER BINDING PARA REMOVER ESSE CODIGO DA ACTIVITY */
         var changeModOberserver = Observer<Boolean> { viewMod ->
             if(viewMod){
-                btnRegister.visibility = View.GONE
+                btnRegister.text = "Atualizar"
             }else{
                 btnRegister.visibility = View.VISIBLE
             }

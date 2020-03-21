@@ -6,6 +6,7 @@ import androidx.databinding.BindingAdapter
 import br.com.tasafe.viewmodel.LoginRegisterViewModel
 
 /* BIND ADAPTERS VALIDATIONS */
+@Suppress("NAME_SHADOWING")
 @BindingAdapter("app:requiredEditText")
 fun requiredEditText(view: EditText, message: String) {
     view.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->

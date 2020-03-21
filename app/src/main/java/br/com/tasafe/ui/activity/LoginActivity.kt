@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import java.util.concurrent.Executors
 
 
+@Suppress("IMPLICIT_CAST_TO_ANY")
 class LoginActivity : BaseActivity() {
 
     private lateinit var viewModel: LoginRegisterViewModel
@@ -54,12 +55,12 @@ class LoginActivity : BaseActivity() {
             val iv = sharedPreferences.getString("iv", null)
             val encrypted = sharedPreferences.getString("encrypted", null)
 
-            if (iv != null && encrypted != null) {
+            val any = if (iv != null && encrypted != null) {
                 //seta usuario para registrado
                 viewModel.setUserSaved(true)
 
                 val biometricManager = BiometricManager.from(this)
-                when (biometricManager.canAuthenticate()) {
+                val any = when (biometricManager.canAuthenticate()) {
                     BiometricManager.BIOMETRIC_SUCCESS -> {
                         showBiometricPrompt()
                         Log.d("BIOMETRIA", "App can authenticate using biometrics.")
@@ -83,9 +84,11 @@ class LoginActivity : BaseActivity() {
 
                     }
                 }
+                any
             } else {
                 viewModel.setUserSaved(false)
             }
+            any
         }
     }
 
