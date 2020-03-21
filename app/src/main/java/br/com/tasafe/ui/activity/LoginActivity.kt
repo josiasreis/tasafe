@@ -1,6 +1,5 @@
 package br.com.tasafe.ui.activity
 
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -23,10 +22,10 @@ import java.util.concurrent.Executors
 
 class LoginActivity : BaseActivity() {
 
-    lateinit var viewModel: LoginRegisterViewModel
-    val executor = Executors.newSingleThreadExecutor()
-    lateinit var sharedPreferences: SharedPreferences
-    lateinit var binding: ActivityLoginBinding
+    private lateinit var viewModel: LoginRegisterViewModel
+    private val executor = Executors.newSingleThreadExecutor()
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +38,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun setupListnerLoggedUser() {
-        var loggedOberserver = Observer<Boolean> { logged ->
+        val loggedOberserver = Observer<Boolean> { logged ->
            if(logged){
              //  var intent = Intent(applicationContext, MySitesActivity::class.java)
               // intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -91,12 +90,12 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun hideViewsFingerPrint() {
-        btnEntrarDigital.hide()
-        lblAuth.hide()
+        this.btnEntrarDigital.hide()
+        this.lblAuth.hide()
     }
 
     private fun observerResultRegister() {
-        var loginEncryptedObserver = Observer<KeyStoreDTO> { keyStoreDTO ->
+        val loginEncryptedObserver = Observer<KeyStoreDTO> { keyStoreDTO ->
             val sharedPreferences = SecurityUtils.getEncryptedSharedPreferences(this)
             with(sharedPreferences!!.edit()) {
                 putString("encrypted", keyStoreDTO.encrypted)
@@ -131,9 +130,9 @@ class LoginActivity : BaseActivity() {
 
     private fun showBiometricPrompt() {
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle(getResources().getString(R.string.titleFingerPrompt))
-            .setSubtitle(getResources().getString(R.string.subTitleFingerPrompt))
-            .setNegativeButtonText(getResources().getString(R.string.cancelar))
+            .setTitle(resources.getString(R.string.titleFingerPrompt))
+            .setSubtitle(resources.getString(R.string.subTitleFingerPrompt))
+            .setNegativeButtonText(resources.getString(R.string.cancelar))
             .build()
 
         val biometricPrompt = BiometricPrompt(this, executor,
@@ -164,21 +163,21 @@ class LoginActivity : BaseActivity() {
         biometricPrompt.authenticate(promptInfo)
     }
 
-    fun isFormaValid(): Boolean {
-        var valid = viewModel.validatePass()
-        var nameEmpty = viewModel.user.value!!.nome.isEmpty()
-        var emailEmpty = viewModel.user.value!!.email.isEmpty()
+    private fun isFormaValid(): Boolean {
+        val valid = viewModel.validatePass()
+        val nameEmpty = viewModel.user.value!!.nome.isEmpty()
+        val emailEmpty = viewModel.user.value!!.email.isEmpty()
         var isValid = true
         if(!valid){
-            binding.txtPass.setError(getResources().getString(R.string.invalid_password))
+            binding.txtPass.error = resources.getString(R.string.invalid_password)
             isValid= false
         }
         if(nameEmpty){
-            binding.txtNome.setError(getResources().getString(R.string.nomeRequired))
+            binding.txtNome.error = resources.getString(R.string.nomeRequired)
             isValid= false
         }
         if(emailEmpty){
-            binding.txtEmail.setError(getResources().getString(R.string.emailRequired))
+            binding.txtEmail.error = resources.getString(R.string.emailRequired)
             isValid= false
         }
         return isValid

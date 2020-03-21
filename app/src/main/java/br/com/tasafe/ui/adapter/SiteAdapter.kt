@@ -1,11 +1,9 @@
 package br.com.tasafe.ui.adapter
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -14,9 +12,9 @@ import br.com.tasafe.model.data.Site
 import br.com.tasafe.tasafe.R
 
 
-class SiteAdapter (var c: Context): RecyclerView.Adapter<SiteAdapter.MyHolder>() {
-    var listener: ListenerSiteAdapter? = null
-    var contas = emptyList<Site>()
+class SiteAdapter (private var c: Context): RecyclerView.Adapter<SiteAdapter.MyHolder>() {
+    private var listener: ListenerSiteAdapter? = null
+    private var contas = emptyList<Site>()
     var selectedItem:Site? = null
     lateinit var currentView:View
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
@@ -37,24 +35,22 @@ class SiteAdapter (var c: Context): RecyclerView.Adapter<SiteAdapter.MyHolder>()
             holder.tvUsuario.text = item.usuario
             //CASO QUEIRA MOSTRAR A SENHA NA PROPRIA LINHA DESCOMENTAR
           /*  holder.tvPass.text = item.decrypt*/
-            if("".equals(item.imagem)){
-                item.nomeSite.let {
-                    if(item.nomeSite.length > 1){
-                        holder.tvIcon.text = item.nomeSite.subSequence(0,1).toString().toUpperCase()
-                    }
+            if("".equals(item.imagem)) item.nomeSite.let {
+                if(item.nomeSite.length > 1){
+                    holder.tvIcon.text = item.nomeSite.subSequence(0,1).toString().toUpperCase()
                 }
-            }else{
+            } else{
                 //TODO IMPLEMENTAR UM SERVICE PRA PEGAR O ICONE DO SITE
                 //esconde o tvIcon e mostra a image view com o picasso
             }
             // Click item
             currentView = holder.container
             holder.itemView.setOnClickListener {
-                if(selectedItem != null && selectedItem!!.idSite == contas.get(position).idSite){
+                if(selectedItem != null && (selectedItem!!.idSite == contas[position].idSite)){
                     applyUnSelectedItemStyle(holder.container)
                     selectedItem =null
                     listener?.itemUnSelected(position)
-                }else if(selectedItem != null && selectedItem!!.idSite != contas.get(position).idSite){
+                }else if(selectedItem != null && selectedItem!!.idSite != contas[position].idSite){
                     unSelectedCurrentItem()
                     selectedItem =null
                     listener?.itemUnSelected(position)
@@ -66,7 +62,7 @@ class SiteAdapter (var c: Context): RecyclerView.Adapter<SiteAdapter.MyHolder>()
 
             holder.itemView.setOnLongClickListener{
                 applySelectedItemStyle(holder.container)
-                selectedItem = contas.get(position)
+                selectedItem = contas[position]
                 listener?.itemLongClicked(position)
                 true
             }
@@ -83,12 +79,12 @@ class SiteAdapter (var c: Context): RecyclerView.Adapter<SiteAdapter.MyHolder>()
         this.listener = listener
     }
 
-    fun applySelectedItemStyle(container: View) {
+    private fun applySelectedItemStyle(container: View) {
         container.setBackgroundColor(ContextCompat.getColor(c,
             R.color.colorPrimaryLight))
     }
 
-    fun applyUnSelectedItemStyle(container: View) {
+    private fun applyUnSelectedItemStyle(container: View) {
         container.setBackgroundColor(ContextCompat.getColor(c,
             R.color.colorBackground))
     }

@@ -2,64 +2,63 @@ package br.com.tasafe.utils
 
 import android.view.View
 import android.widget.EditText
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import br.com.tasafe.viewmodel.LoginRegisterViewModel
 
 /* BIND ADAPTERS VALIDATIONS */
 @BindingAdapter("app:requiredEditText")
 fun requiredEditText(view: EditText, message: String) {
-    view.setOnFocusChangeListener(object : View.OnFocusChangeListener {
+    view.onFocusChangeListener = object : View.OnFocusChangeListener {
         override fun onFocusChange(view: View, hasFocus: Boolean) {
             if (!hasFocus) {
                 if (view is EditText) {
                     val editText = view
                     if (editText.isEmpty()) {
-                        editText.setError(message)
+                        editText.error = message
                     } else {
-                        editText.setError(null)
+                        editText.error = null
                     }
                 }
             }
         }
-    })
+    }
 }
 
 @BindingAdapter(value = ["app:emailValid", "app:required", "app:requiredMessage"], requireAll = true)
 fun emailValid(view: EditText, message: String, required: Boolean, requiredMessage:String) {
-    view.setOnFocusChangeListener(object : View.OnFocusChangeListener {
+    view.onFocusChangeListener = object : View.OnFocusChangeListener {
         override fun onFocusChange(view: View, hasFocus: Boolean) {
             if (!hasFocus) {
                 if (view is EditText) {
                     val editText = view
                     if (required && editText.isEmpty()) {
-                        editText.setError(requiredMessage)
+                        editText.error = requiredMessage
                     } else if(! editText.text.toString().isEmailValid()){
-                        editText.setError(message)
+                        editText.error = message
                     }else {
-                        editText.setError(null)
+                        editText.error = null
                     }
                 }
             }
         }
-    })
+    }
 }
 
 @BindingAdapter(value = ["app:invalidPass","app:viewmodel"], requireAll = true)
 fun invalidPass(view: EditText, message: String, viewModel:LoginRegisterViewModel) {
-    view.setOnFocusChangeListener(object : View.OnFocusChangeListener {
+    view.onFocusChangeListener = object : View.OnFocusChangeListener {
         override fun onFocusChange(view: View, hasFocus: Boolean) {
             if (!hasFocus) {
-               val valid:Boolean = viewModel.validatePass()
+                val valid:Boolean = viewModel.validatePass()
                 if(!valid){
                     if (view is EditText) {
                         val editText = view
-                        editText.setError(message)
+                        editText.error = message
                     }
                 }
             }
         }
-    })
+    }
 }
 
 @BindingAdapter(value = ["app:showIfSaved"])

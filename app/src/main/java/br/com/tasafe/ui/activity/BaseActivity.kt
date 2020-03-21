@@ -1,9 +1,8 @@
 package br.com.tasafe.ui.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import br.com.tasafe.tasafe.R
 import kotlinx.android.synthetic.main.loading.*
 

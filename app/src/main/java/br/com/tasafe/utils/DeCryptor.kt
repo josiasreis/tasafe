@@ -8,7 +8,7 @@ import javax.crypto.spec.GCMParameterSpec
 import javax.security.cert.CertificateException
 
 internal class DeCryptor {
-    lateinit var keyStore: KeyStore
+    private lateinit var keyStore: KeyStore
     @Throws(
         KeyStoreException::class,
         CertificateException::class,
@@ -49,7 +49,7 @@ internal class DeCryptor {
         KeyStoreException::class
     )
     private fun getSecretKey(alias: String): SecretKey {
-        return (keyStore.getEntry(alias, null) as KeyStore.SecretKeyEntry).getSecretKey()
+        return (keyStore.getEntry(alias, null) as KeyStore.SecretKeyEntry).secretKey
     }
 
     companion object {

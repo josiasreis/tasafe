@@ -11,8 +11,7 @@ fun String.containsDigit() : Boolean{
     val p =
         Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE)
     val m1: Matcher = p.matcher(this)
-    val flag: Boolean = m1.find()
-    return flag
+    return m1.find()
 }
 
 fun String.isEmailValid() = android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()

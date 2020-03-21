@@ -2,20 +2,24 @@ package br.com.tasafe.model.bo
 
 import br.com.tasafe.model.data.User
 import br.com.tasafe.model.repository.UserRepository
-import br.com.tasafe.utils.*
 import br.com.tasafe.utils.EnCryptor
+import br.com.tasafe.utils.containsDigit
+import br.com.tasafe.utils.containsLetter
+import br.com.tasafe.utils.containsNumber
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 /* CLASSE DE NEGOCIO RELACIONADA AO LOGIN : BUSINESS OBJECT PATTERN */
 class LoginBO(private var repository: UserRepository) {
-
     /* REGISTRA USUARIO NO ROOM E REGISTRA SENHA COMO CERTIFICADO KEY STORE */
     suspend fun registerUser(user: User,pass:String): EnCryptor {
         repository.run { insert(user) }
         val encrypt = EnCryptor()
-        encrypt.run {
-            encryptText("login", pass)
+        GlobalScope.launch {
+            encrypt.encryptText("login",pass)
         }
+
         return encrypt
     }
 

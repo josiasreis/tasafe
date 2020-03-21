@@ -2,11 +2,13 @@ package br.com.tasafe.utils
 
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import java.io.IOException
 import java.security.*
 import javax.crypto.*
 
- class EnCryptor {
+class EnCryptor {
     lateinit var encryption: ByteArray
     lateinit var iv: ByteArray
 
@@ -23,14 +25,24 @@ import javax.crypto.*
         BadPaddingException::class,
         IllegalBlockSizeException::class
     )
-   suspend fun encryptText(alias: String, textToEncrypt: String): ByteArray {
+
+    suspend fun encryptText(alias: String, textToEncrypt: String): ByteArray = GlobalScope.async {
         val cipher: Cipher = Cipher.getInstance(TRANSFORMATION)
         cipher.init(Cipher.ENCRYPT_MODE, getSecretKey(alias))
-        iv = cipher.getIV()
+        iv = cipher.iv
+        return@async cipher.doFinal(textToEncrypt.toByteArray(charset("UTF-8"))).also(block = {
+            encryption = it
+        })
+    }.await()
+
+   /*fun encryptText(alias: String, textToEncrypt: String): ByteArray {
+        val cipher: Cipher = Cipher.getInstance(TRANSFORMATION)
+        cipher.init(Cipher.ENCRYPT_MODE, getSecretKey(alias))
+        iv = cipher.iv
         return cipher.doFinal(textToEncrypt.toByteArray(charset("UTF-8"))).also(block = {
             encryption = it
         })
-    }
+    }*/
 
     @Throws(
         NoSuchAlgorithmException::class,

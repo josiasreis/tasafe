@@ -33,10 +33,10 @@ class MySitesActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_sites)
         val actionbar = supportActionBar
-        actionbar!!.title = getResources().getString(R.string.titleMySytes)
+        actionbar!!.title = resources.getString(R.string.titleMySytes)
 
         viewModel = ViewModelProvider(this).get(SiteViewModel::class.java)
-        var binding: ActivityMySitesBinding =
+        val binding: ActivityMySitesBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_my_sites)
         binding.lifecycleOwner = this
         setupRecycleView()
@@ -53,10 +53,7 @@ class MySitesActivity : BaseActivity() {
 
             val decoration =
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL).apply {
-                    recycleSites.context.generateDashedLineDrawable(
-                        backgroundColor = Color.BLACK,
-                        strokeColor = Color.BLACK
-                    ).let {
+                    recycleSites.context.generateDashedLineDrawable(backgroundColor = Color.BLACK, strokeColor = Color.BLACK).let { it ->
                         setDrawable(it)
                     }
                 }
@@ -65,9 +62,9 @@ class MySitesActivity : BaseActivity() {
             adapter = SiteAdapter(it)
             adapter.setMyListener(object : ListenerSiteAdapter {
                 override fun itemClicked(position: Int) {
-                    var intent = Intent(applicationContext, NewSiteActivity::class.java)
-                    val site = viewModel.sites.value!!.get(position)
-                    intent.putExtra("idSite", site.idSite);
+                    val intent = Intent(applicationContext, NewSiteActivity::class.java)
+                    val site = viewModel.sites.value!![position]
+                    intent.putExtra("idSite", site.idSite)
                     NavigationUtil.goTo(applicationContext, intent)
                 }
 
@@ -77,18 +74,14 @@ class MySitesActivity : BaseActivity() {
                 }
 
                 override fun showPassClicked(position: Int) {
-                    val site = viewModel.sites.value!!.get(position)
-                    var pass = viewModel.showPass(site)
+                    val site = viewModel.sites.value!![position]
+                    val pass = viewModel.showPass(site)
 
                     val clipboardManager =
                         getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                     val clipData = ClipData.newPlainText("text", pass)
                     clipboardManager.setPrimaryClip(clipData)
-                    Toast.makeText(
-                        applicationContext,
-                        getResources().getString(R.string.senhaCopiada),
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(applicationContext, resources.getString(R.string.senhaCopiada), Toast.LENGTH_LONG).show()
                 }
 
                 override fun itemLongClicked(position: Int) {
@@ -97,7 +90,7 @@ class MySitesActivity : BaseActivity() {
                 }
             })
 
-            recycleSites.adapter = adapter;
+            recycleSites.adapter = adapter
             viewModel.sites.observe(this, Observer { sites ->
                 sites?.let { adapter.updateListSetChange(sites) }
             })

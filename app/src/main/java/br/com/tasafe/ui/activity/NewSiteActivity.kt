@@ -1,8 +1,6 @@
 package br.com.tasafe.ui.activity
 
-import android.accounts.AccountManager
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -10,16 +8,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import br.com.tasafe.tasafe.R
 import br.com.tasafe.tasafe.databinding.ActivityNewSiteBinding
-import br.com.tasafe.utils.NavigationUtil
-import br.com.tasafe.utils.hide
-import br.com.tasafe.utils.show
 import br.com.tasafe.viewmodel.NewSiteViewModel
 import kotlinx.android.synthetic.main.activity_new_site.*
 
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class NewSiteActivity : BaseActivity() {
-    lateinit var viewModel: NewSiteViewModel
-    lateinit var binding: ActivityNewSiteBinding
+    private lateinit var viewModel: NewSiteViewModel
+    private lateinit var binding: ActivityNewSiteBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val actionbar = supportActionBar
@@ -32,18 +28,18 @@ class NewSiteActivity : BaseActivity() {
         actionbar?.setDisplayHomeAsUpEnabled(true)
          actionbar?.setDisplayHomeAsUpEnabled(true)
 
-       var idSite = intent.getIntExtra("idSite",0)
+       val idSite = intent.getIntExtra("idSite",0)
         if(idSite != 0){
-            actionbar?.title = getResources().getString(R.string.editarSite)
+            actionbar?.title = resources.getString(R.string.editarSite)
             loadViewMode(idSite)
         }else{
-            actionbar?.title = getResources().getString(R.string.novoSite)
+            actionbar?.title = resources.getString(R.string.novoSite)
         }
         observerChangeMode()
     }
 
     fun observerChangeMode(){
-        //TODO CRIAR UM ADAPTER BINDING PARA REMOVER ESSE CODIGO DA ACTIVITY
+        /* TODO CRIAR UM ADAPTER BINDING PARA REMOVER ESSE CODIGO DA ACTIVITY */
         var changeModOberserver = Observer<Boolean> { viewMod ->
             if(viewMod){
                 btnRegister.visibility = View.GONE
@@ -54,14 +50,14 @@ class NewSiteActivity : BaseActivity() {
         viewModel.viewMod.observe(this, changeModOberserver)
     }
 
-    fun loadViewMode(idSite:Int){
+    private fun loadViewMode(idSite:Int){
         viewModel.loadViewMode(idSite)
     }
 
     fun register(view: View){
         if(isFormaValid()){
             viewModel.save()
-            this.onBackPressed();
+            this.onBackPressed()
         }
     }
 
@@ -77,25 +73,25 @@ class NewSiteActivity : BaseActivity() {
     }
 
     fun isFormaValid(): Boolean {
-        var nameEmpty = viewModel.site.value!!.nomeSite.isEmpty()
-        var siteEmpty = viewModel.site.value!!.urlSite.isEmpty()
-        var usuarioEmpty = viewModel.site.value!!.usuario.isEmpty()
-        var passEmpty = viewModel.password.get()!!.isEmpty()
+        val nameEmpty = viewModel.site.value!!.nomeSite.isEmpty()
+        val siteEmpty = viewModel.site.value!!.urlSite.isEmpty()
+        val usuarioEmpty = viewModel.site.value!!.usuario.isEmpty()
+        val passEmpty = viewModel.password.get()!!.isEmpty()
         var isValid = true
         if(nameEmpty){
-            binding.txtNomeSite.setError(getResources().getString(R.string.nomeRequired))
+            binding.txtNomeSite.error = resources.getString(R.string.nomeRequired)
             isValid= false
         }
         if(siteEmpty){
-            binding.txtSite.setError(getResources().getString(R.string.siteRequired))
+            binding.txtSite.error = resources.getString(R.string.siteRequired)
             isValid= false
         }
         if(usuarioEmpty){
-            binding.txtUsuario.setError(getResources().getString(R.string.usuarioRequired))
+            binding.txtUsuario.error = resources.getString(R.string.usuarioRequired)
             isValid= false
         }
         if(passEmpty){
-            binding.txtPassSite.setError(getResources().getString(R.string.senhaRequired))
+            binding.txtPassSite.error = resources.getString(R.string.senhaRequired)
             isValid= false
         }
         return isValid

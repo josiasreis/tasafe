@@ -1,7 +1,6 @@
 package br.com.tasafe.model.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import br.com.tasafe.model.dao.SiteDAO
 import br.com.tasafe.model.data.Site
 
