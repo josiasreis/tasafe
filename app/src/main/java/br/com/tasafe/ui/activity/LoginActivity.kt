@@ -1,5 +1,6 @@
 package br.com.tasafe.ui.activity
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -41,9 +42,11 @@ class LoginActivity : BaseActivity() {
     private fun setupListnerLoggedUser() {
         val loggedOberserver = Observer<Boolean> { logged ->
            if(logged){
-             //  var intent = Intent(applicationContext, MySitesActivity::class.java)
-              // intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-               NavigationUtil.goToAndClearStack(this,MySitesActivity::class.java)
+               var it = Intent(this, MySitesActivity::class.java)
+               intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+               startActivity(it)
+              //
+             //  gotoMySitesActivity(intent)
            }
         }
         viewModel.logged.observe(this, loggedOberserver)

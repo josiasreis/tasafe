@@ -1,5 +1,6 @@
 package br.com.tasafe.ui.activity
 
+import android.content.Context
 import android.content.Intent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -30,4 +31,26 @@ open class BaseActivity : AppCompatActivity() {
     fun hideLoading(){
         clFullLoading.visibility = View.GONE
     }
+
+   /* fun gotoNewSite(context: Context) {
+        val intent = Intent(context, NewSiteActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun gotoNewSite(context: Context,intent:Intent) {
+        val intent = Intent(context, NewSiteActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun gotoMySitesActivity(intent:Intent) {
+        startActivity(intent)
+    }
+
+    fun gotoMySitesActivity(context: Context,intent:Intent) {
+        val intent = Intent(context, MySitesActivity::class.java)
+        startActivity(intent)
+    }*/
+
+
+
 }

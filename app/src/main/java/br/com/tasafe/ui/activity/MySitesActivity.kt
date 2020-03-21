@@ -43,7 +43,8 @@ class MySitesActivity : BaseActivity() {
     }
 
     fun newSite(view: View) {
-        NavigationUtil.goTo(this, NewSiteActivity::class.java)
+        val intent = Intent(this, NewSiteActivity::class.java)
+        startActivity(intent)
     }
 
     private fun setupRecycleView() {
@@ -65,7 +66,7 @@ class MySitesActivity : BaseActivity() {
                     val intent = Intent(applicationContext, NewSiteActivity::class.java)
                     val site = viewModel.sites.value!![position]
                     intent.putExtra("idSite", site.idSite)
-                    NavigationUtil.goTo(applicationContext, intent)
+                    startActivity(intent)
                 }
 
                 override fun itemUnSelected(position: Int) {

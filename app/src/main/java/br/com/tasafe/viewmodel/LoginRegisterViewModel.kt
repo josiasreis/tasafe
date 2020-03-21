@@ -57,7 +57,7 @@ class LoginRegisterViewModel(application: Application) : AndroidViewModel(applic
        val decrypted = decryptor.decryptData("login",arrayBytesEncrypted,ivBytesEncrypted)
         val pass: String = password.get().toString()
 
-        if(pass == decrypted){
+        if(pass.equals(decrypted)){
             _logged.value = true
         }
     }
